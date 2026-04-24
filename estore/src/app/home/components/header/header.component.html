@@ -38,11 +38,11 @@
           type="button" 
           data-bs-toggle="dropdown"
           aria-expanded="false">
-          <fa-icon class="user-icon" [icon]="faUserCircle">Logout</fa-icon>
+          <fa-icon class="user-icon" [icon]="faUserCircle"></fa-icon>
           Hi! {{ (userService.loggedInUser$ | async)?.firstName }}
       </button>
       <ul class="dropdown-menu">
-        <li><a class="dropdown-item">Log out</a></li>
+        <li><a class="dropdown-item" (click)="logout()">Log out</a></li>
       </ul>
       </div>
     </div>

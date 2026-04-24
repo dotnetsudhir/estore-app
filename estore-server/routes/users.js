@@ -79,6 +79,7 @@ users.post('/login', (req, res) => {
                       lastName: result[0].lastName,
                       address: result[0].address,
                       city: result[0].city,
+                      state: result[0].state,
                       pin: result[0].pin
                     },
                     'estore-secret-key',
@@ -88,8 +89,8 @@ users.post('/login', (req, res) => {
                     token: token,
                     expiresInSeconds: 3600,
                     user: {
-                      firstName: result[0].firstName,
-                      lastName: result[0].lastName,
+                      firstName: result[0].firstname,
+                      lastName: result[0].lastname,
                       address: result[0].address,
                       city: result[0].city,
                       state: result[0].state,
