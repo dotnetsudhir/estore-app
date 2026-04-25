@@ -9,6 +9,8 @@ export class UserService {
   private isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject(false);
   private loggedInUserInfo: BehaviorSubject<loggedInUser> = new BehaviorSubject(<loggedInUser>{});
   private autoLogoutTimer: any;
+  private authToken: string;
+
   constructor(private httpClient: HttpClient) {
     this.loadToken();
   }
@@ -34,9 +36,11 @@ export class UserService {
     localStorage.setItem('city', token.user.city);
     localStorage.setItem('state', token.user.state);
     localStorage.setItem('pin', token.user.pin);
+    localStorage.setItem('email', token.user.email);
     this.isAuthenticated.next(true);
     this.loggedInUserInfo.next(token.user);
     this.setAutoLogoutTimer(token.expiresInSeconds * 1000);
+    this.authToken = token.token;
     
   }
 
@@ -69,6 +73,7 @@ export class UserService {
         const city: string | null = localStorage.getItem('city');
         const state: string | null = localStorage.getItem('state');
         const pin: string | null = localStorage.getItem('pin');
+        const email: string | null = localStorage.getItem('email');
 
         const user: loggedInUser = {
         firstName: firstName != null ? firstName: '',
@@ -76,11 +81,13 @@ export class UserService {
         address: address != null ? address: '',
         state: state != null ? state: '',
         city: city != null ? city: '',
-        pin: pin != null ? pin: ''
+        pin: pin != null ? pin: '',
+        email: email != null? email: ''
       }
       this.isAuthenticated.next(true);
       this.loggedInUserInfo.next(user);
       this.setAutoLogoutTimer(expiresIn);
+      this.authToken = token;
 
       }
       else{
@@ -102,5 +109,9 @@ export class UserService {
 
   get loggedInUser$(): Observable<loggedInUser>{
     return this.loggedInUserInfo.asObservable();
+  }
+
+  get token(){
+    return this.authToken;
   }
 }

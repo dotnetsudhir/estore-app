@@ -2,15 +2,9 @@ $search-bar-background-color: #dadada;
 $search-bar-height: 2.5em;
 $search-bar-border: none;
 
-.search-bar {
-    background-color: #dadada;
-    height: 2.5em;
-    border: none;
-}
-
 .header {
     max-width: 100%;
-    box-shadow: 5px 5px 20px gray;
+    box-shadow:5px 5px 20px gray;
     overflow: hidden;
 }
 
@@ -18,7 +12,7 @@ $search-bar-border: none;
     color: white;
     margin-left: 2%;
     padding: 0.8em;
-    width: 23%;
+    width:23%;
 }
 
 .search-box {
@@ -52,7 +46,6 @@ $search-bar-border: none;
 
     h5 {
         display: inline-block;
-
         a {
             text-decoration: none;
             color: white;
@@ -69,7 +62,7 @@ $search-bar-border: none;
 .user-container {
     color: white;
     display: inline-block;
-    width: 15em;
+    width: 10em;
     margin: 1.5em 0.2em 0 1.5em;
 }
 
@@ -90,10 +83,9 @@ $search-bar-border: none;
     margin-top: 1.7em;
     margin-left: 1em;
 
-
     .list-item {
-        color: white;
-        list-style-type: none;
+        color:white;
+        list-style-type:none;
         display: inline-block;
         font-size: 1.3em;
         margin-right: 0.5em;

@@ -42,6 +42,7 @@ export class UserLoginComponent implements OnInit {
   onSubmit(): void {
     this.userService.login(this.email?.value, this.password?.value).subscribe({
       next: (result: loginToken) => {
+        result.user.email = this.email?.value;
          console.log('LOGIN RESPONSE 👉', result);
         this.userService.activateToken(result);
         this.alertType = 0;
