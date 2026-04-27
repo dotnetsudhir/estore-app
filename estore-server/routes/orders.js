@@ -77,4 +77,105 @@ orders.post('/add', checkToken,(req,res) => {
     }
 })
 
+orders.get('/allorders', checkToken, (req, res) => {
+    try{
+        let email = req.query.userEmail;
+        pool.query(`select id from users where email=?`,[email], (error, user) => {
+            if(error){
+                res.status(500).send(
+                    {
+                        error: error.code,
+                        message: error.message
+                    }
+                )
+            }
+            else{
+                if(user.length > 0){
+                    let userId = user[0].id;
+                    console.log("userid:"+userId)
+                    pool.query(`select orderId, DATE_FORMAT(orderdate, '%m/%d/%Y') as orderDate, 
+                        userName, address, city, state, pin, total from Orders where userid = ${userId}`,
+                    (error, orders) => {
+                        if(error){
+                            res.status(500).send(
+                                {
+                                    error: error.code,
+                                    message: error.message
+                                }
+                            )
+                        }
+                        else{
+                            const allOrders = [];
+                            orders.forEach(
+                                order => {
+                                    allOrders.push( {
+                                        orderId: order.orderId,
+                                        userName: order.userName,
+                                        address: order.address,
+                                        city: order.city,
+                                        state: order.city,
+                                        pin: order.pin,
+                                        total: order.total,
+                                        orderDate: order.orderDate
+                                    })
+                                }
+                            );
+                            res.status(200).send(allOrders);
+                        }
+                    }
+                    )
+                }
+            }
+        })
+    }
+    catch (error){
+        res.status(400).send({
+            error: error.code,
+            message: error.message
+        })
+    }
+});
+
+orders.get('/orderproducts', checkToken, (req, res) => {
+    try{
+        let orderId = req.query.orderId;
+        pool.query(`select orderdetails.*, products.product_name, products.product_img from orderDetails, products
+            where orderdetails.productid = products.id and orderid = '${orderId}'`,
+            (error, orderProducts) => {
+                if(error){
+                    res.status(500).send(
+                        {
+                            error: error.code,
+                            message: error.message
+                        }
+                    )
+                }
+                else{
+                    let orderDetails = [];
+                    orderProducts.forEach(
+                        orderProduct => {
+                            orderDetails.push(
+                                {
+                                    productId: orderProduct.productId,
+                                    productName: orderProduct.product_Name,
+                                    productImage: orderProduct.product_img,
+                                    qty: orderProduct.qty,
+                                    price: orderProduct.price,
+                                    amount: orderProduct.amount
+                                })
+                        });
+                        res.status(200).send(orderDetails);
+                }
+
+            }
+        );
+    }
+    catch(error){
+        res.status(400).send({
+            error: error.code,
+            message: error.message
+        });
+    }
+});
+
 module.exports = orders;

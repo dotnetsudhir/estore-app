@@ -15,3 +15,23 @@ export interface Order{
     userEmail: string;
     orderDetails: OrderItem[];
 }
+
+export interface PastOrder{
+    userName: string;
+    address: string;
+    state: string;
+    city: string;
+    pin: string;
+    total: number;
+    orderDate: string;
+    orderId: number;
+}
+
+export interface PastOrderProduct{
+    productId: number;
+    productImage: string;
+    qty: number;
+    price: number;
+    amount: number;
+    productName: string;
+}

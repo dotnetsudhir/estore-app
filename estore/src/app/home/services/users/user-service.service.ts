@@ -114,4 +114,8 @@ export class UserService {
   get token(){
     return this.authToken;
   }
+
+  get loggedInUser(): loggedInUser{
+    return this.loggedInUserInfo.value;
+  }
 }
