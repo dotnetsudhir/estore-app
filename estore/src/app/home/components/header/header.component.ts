@@ -12,6 +12,8 @@ import { filter } from 'rxjs/operators';
 import { CartStoreItem } from '../../services/cart/cart.storeItem';
 import { UserService } from '../../services/users/user-service.service';
 import { Subscription } from 'rxjs';
+import { OrderService } from '../../services/order/order.service';
+import { PastOrder } from '../../types/order.type';
 
 @Component({
   selector: 'app-header',
@@ -31,12 +33,14 @@ export class HeaderComponent implements OnDestroy {
     new EventEmitter<SearchKeyword>();
 
   displaySearch: boolean = true;
+  orders: PastOrder[]=[];
 
   constructor(
     public categoryStore: CategoriesStoreItem,
     private router: Router,
     public cartStore: CartStoreItem,
-    public userService: UserService
+    public userService: UserService,
+    private orderService: OrderService
   ) {
     router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
@@ -96,5 +100,10 @@ export class HeaderComponent implements OnDestroy {
 
   logout(): void{
     this.userService.logout();
+    this.router.navigate(['home/products']);
+  }
+
+  pastOrders(){
+    this.router.navigate(['home/pastorders']);    
   }
 }

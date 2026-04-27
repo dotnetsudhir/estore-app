@@ -74,13 +74,7 @@ users.post('/login', (req, res) => {
                 if (compareResult) {
                   const token = jwtoken.sign(
                     { id: result[0].id, 
-                      email: result[0].email,
-                      firstName: result[0].firstName,
-                      lastName: result[0].lastName,
-                      address: result[0].address,
-                      city: result[0].city,
-                      state: result[0].state,
-                      pin: result[0].pin
+                      email: result[0].email
                     },
                     'estore-secret-key',
                     { expiresIn: '1h' }
@@ -88,14 +82,16 @@ users.post('/login', (req, res) => {
                   res.status(200).send({
                     token: token,
                     expiresInSeconds: 3600,
-                    user: {
+                     user: {
+                      id: result[0].id,
                       firstName: result[0].firstname,
                       lastName: result[0].lastname,
                       address: result[0].address,
                       city: result[0].city,
                       state: result[0].state,
-                      pin: result[0].pin
-                    }
+                      pin: result[0].pin,
+                    },
+
                   });
                 } else {
                   res.status(401).send({

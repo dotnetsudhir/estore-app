@@ -6,6 +6,8 @@ import { ProductdetailsComponent } from './components/productdetails/productdeta
 import { CartComponent } from './components/cart/cart.component';
 import { UserSignupComponent } from './components/users/user-signup/user-signup.component';
 import { UserLoginComponent } from './components/users/user-login/user-login.component';
+import { PastOrdersComponent } from './components/past-orders/past-orders.component';
+import { authGuard } from './services/authguard';
 
 const routes: Routes = [
   {
@@ -31,6 +33,11 @@ const routes: Routes = [
       {
         path: 'login',
         component: UserLoginComponent
+      },
+      {
+        path: 'pastorders',
+        component: PastOrdersComponent,
+        canActivate: [authGuard]
       }
     ],
   },

@@ -1,0 +1,37 @@
+export interface OrderItem{
+    productId: number;
+    qty: number;
+    price: number;
+    amount: number;
+}
+
+export interface Order{
+    userName: string;
+    address: string;
+    state: string;
+    city: string;
+    pin: string;
+    total: number;
+    userEmail: string;
+    orderDetails: OrderItem[];
+}
+
+export interface PastOrder{
+    userName: string;
+    address: string;
+    state: string;
+    city: string;
+    pin: string;
+    total: number;
+    orderDate: string;
+    orderId: number;
+}
+
+export interface PastOrderProduct{
+    productId: number;
+    productImage: string;
+    qty: number;
+    price: number;
+    amount: number;
+    productName: string;
+}

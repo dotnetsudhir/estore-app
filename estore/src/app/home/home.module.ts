@@ -22,6 +22,8 @@ import { UserSignupComponent } from './components/users/user-signup/user-signup.
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserLoginComponent } from './components/users/user-login/user-login.component';
 import { UserService } from './services/users/user-service.service';
+import { OrderService } from './services/order/order.service';
+import { PastOrdersComponent } from './components/past-orders/past-orders.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,7 @@ import { UserService } from './services/users/user-service.service';
     CartComponent,
     UserSignupComponent,
     UserLoginComponent,
+    PastOrdersComponent,
   ],
   imports: [
     CommonModule,
@@ -52,6 +55,7 @@ import { UserService } from './services/users/user-service.service';
     ProductsStoreItem,
     CartStoreItem,
     UserService,
+    OrderService
   ],
 })
 export class HomeModule {}
